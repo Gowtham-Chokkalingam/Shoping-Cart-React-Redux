@@ -1,12 +1,19 @@
-import { height } from "@mui/system";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useDispatch } from "react-redux";
+import {ADD} from "../redux/actions/action";
 import CardsData from "./CardsData";
 import "./style.css";
 
 const Cards = () => {
+  const dispatch = useDispatch();
+
   const [data, setData] = useState(CardsData);
+
+  const HandleAddCart = (data) => {
+    dispatch(ADD(data));
+  };
   return (
     <div className="container mt-3">
       <h2 className="text-center">Add to Cart Projects Redux</h2>
@@ -19,7 +26,7 @@ const Cards = () => {
                 <Card.Title>{ele.rname}</Card.Title>
                 <Card.Text>Price : ₹ {ele.price} </Card.Text>
                 <div className="button_div d-flex justify-content-center">
-                  <Button variant="primary" className="col-lg">
+                  <Button onClick={() => HandleAddCart(ele)} variant="primary" className="col-lg">
                     Add To Cart
                   </Button>
                 </div>
